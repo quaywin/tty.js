@@ -19,5 +19,8 @@
     "pty.js": ">= 0.2.13",
     "term.js": ">= 0.0.5"
   },
-  "engines": { "node": ">= 0.8.0" }
+  "engines": { "node": ">= 0.8.0" },
+  "scripts": {
+     "start": "node bin/tty.js --port 3002"
+  }
 }

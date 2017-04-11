@@ -93,7 +93,7 @@ tty.open = function() {
   }
 
   tty.socket.on('connect', function() {
-    tty.reset();
+    // tty.reset();
     tty.emit('connect');
   });
 
@@ -213,8 +213,8 @@ function Window(socket) {
   grip = document.createElement('div');
   grip.className = 'grip';
 
-  bar = document.createElement('div');
-  bar.className = 'bar';
+  // bar = document.createElement('div');
+  // bar.className = 'bar';
 
   button = document.createElement('div');
   button.innerHTML = '~';
@@ -228,7 +228,7 @@ function Window(socket) {
   this.socket = socket || tty.socket;
   this.element = el;
   this.grip = grip;
-  this.bar = bar;
+  // this.bar = bar;
   this.button = button;
   this.title = title;
 
@@ -239,21 +239,21 @@ function Window(socket) {
   this.rows = Terminal.geometry[1];
 
   el.appendChild(grip);
-  el.appendChild(bar);
-  bar.appendChild(button);
-  bar.appendChild(title);
+  // el.appendChild(bar);
+  // bar.appendChild(button);
+  // bar.appendChild(title);
   body.appendChild(el);
 
   tty.windows.push(this);
 
   this.createTab();
   this.focus();
-  this.bind();
+  // this.bind();
 
-  this.tabs[0].once('open', function() {
-    tty.emit('open window', self);
-    self.emit('open');
-  });
+  // this.tabs[0].once('open', function() {
+  //   tty.emit('open window', self);
+  //   self.emit('open');
+  // });
 }
 
 inherits(Window, EventEmitter);
@@ -261,7 +261,7 @@ inherits(Window, EventEmitter);
 Window.prototype.bind = function() {
   var self = this
     , el = this.element
-    , bar = this.bar
+    // , bar = this.bar
     , grip = this.grip
     , button = this.button
     , last = 0;
@@ -281,22 +281,22 @@ Window.prototype.bind = function() {
     return cancel(ev);
   });
 
-  on(el, 'mousedown', function(ev) {
-    if (ev.target !== el && ev.target !== bar) return;
+  // on(el, 'mousedown', function(ev) {
+  //   if (ev.target !== el && ev.target !== bar) return;
 
-    self.focus();
+  //   self.focus();
 
-    cancel(ev);
+  //   cancel(ev);
 
-    if (new Date - last < 600) {
-      return self.maximize();
-    }
-    last = new Date;
+  //   if (new Date - last < 600) {
+  //     return self.maximize();
+  //   }
+  //   last = new Date;
 
-    self.drag(ev);
+  //   self.drag(ev);
 
-    return cancel(ev);
-  });
+  //   return cancel(ev);
+  // });
 };
 
 Window.prototype.focus = function() {
@@ -567,7 +567,7 @@ function Tab(win, socket) {
   var button = document.createElement('div');
   button.className = 'tab';
   button.innerHTML = '\u2022';
-  win.bar.appendChild(button);
+  // win.bar.appendChild(button);
 
   on(button, 'click', function(ev) {
     if (ev.ctrlKey || ev.altKey || ev.metaKey || ev.shiftKey) {
@@ -622,7 +622,7 @@ Tab.prototype.handleTitle = function(title) {
   }
 
   if (this.window.focused === this) {
-    this.window.bar.title = title;
+    // this.window.bar.title = title;
     // this.setProcessName(this.process);
   }
 };
@@ -897,6 +897,8 @@ function load() {
   off(document, 'load', load);
   off(document, 'DOMContentLoaded', load);
   tty.open();
+  new Window;
+  tty.windows[0].maximize();
 }
 
 on(document, 'load', load);
