@@ -571,7 +571,9 @@ function Tab(win, socket) {
 
   on(button, 'click', function(ev) {
     if (ev.ctrlKey || ev.altKey || ev.metaKey || ev.shiftKey) {
-      self.destroy();
+      if(win.tabs.length > 1){
+        self.destroy();
+      }
     } else {
       self.focus();
     }
