@@ -217,7 +217,7 @@ function Window(socket) {
   bar.className = 'bar';
 
   button = document.createElement('div');
-  button.innerHTML = '~';
+  button.innerHTML = '+';
   button.title = 'new/close';
   button.className = 'tab';
 
