@@ -478,14 +478,13 @@ Window.prototype.maximize = function() {
   el.style.left = '0px';
   el.style.top = '0px';
   el.style.width = '100%';
-  el.style.height = '190px';
+  el.style.height = '100%';
   term.element.style.width = '100%';
-  term.element.style.height = '100%';
   el.style.boxSizing = 'border-box';
   this.grip.style.display = 'none';
   root.className = 'maximized';
 
-  this.resize(x, 13);
+  this.resize(x, y - 1);
 
   tty.emit('maximize window', this);
   this.emit('maximize');

@@ -43,7 +43,7 @@ body {
 
 .window {
   padding-top: 15px;
-  border: #fafafa solid 1px;
+  /*border: #fafafa solid 1px;*/
   background: #272829;
   position: absolute;
   top: 20px;
@@ -112,11 +112,12 @@ body {
 
 .terminal {
   border: #000 solid 5px;
+  /*padding: 5px;*/
   font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
   font-size: 11px;
   color: #f0f0f0;
   background: #000;
-  height: 100%;
+  height: calc(100% - 10px);
 }
 
 .reverse-video {
