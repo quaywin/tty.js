@@ -236,7 +236,7 @@ function Window(socket) {
   this.focused = null;
 
   this.cols = Terminal.geometry[0];
-  this.rows = Terminal.geometry[1];
+  this.rows = Terminal.geometry[1] - 1;
 
   el.appendChild(grip);
   el.appendChild(bar);
