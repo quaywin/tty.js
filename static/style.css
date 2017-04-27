@@ -42,9 +42,9 @@ body {
  */
 
 .window {
-  padding-top: 15px;
+  padding-top: 27px;
   /*border: #fafafa solid 1px;*/
-  background: #272829;
+  background: #ececec;
   position: absolute;
   top: 20px;
   left: 20px;
@@ -66,10 +66,11 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 13px;
-  padding: 1px 0;
+  height: 27px;
   font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
   color: #fafafa;
+  display: flex;
+  flex-direction: row;
 }
 
 .dark .bar,
@@ -84,16 +85,50 @@ body {
   cursor: default;
 }
 
-.tab {
+.add-new-tab {
   font-size: 16px;
-  margin-left: 8px;
-  margin-top: -2px;
-  float: left;
+  height: 100%;
+  width: 20px;
+  background-color: #ececec;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f9ba00;
   cursor: pointer;
+  order: 99999;
 }
 
+.add-new-tab:hover {
+  background-color: #f9f9f9;
+}
+
+
+.tab {
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  width: 70px;
+  background-color: #ececec;
+  color: #777777;
+  padding: 4px;
+  margin-right: 2px;
+  justify-content: space-around;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.tab.active,
 .tab:hover {
   font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+.tab .tab-name {
+  margin-right: 5px;
 }
 
 .grip {
@@ -115,14 +150,14 @@ body {
   /*padding: 5px;*/
   font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
   font-size: 11px;
-  color: #f0f0f0;
+  color: #ececec;
   background: #000;
   height: calc(100% - 10px);
 }
 
 .reverse-video {
   color: #000;
-  background: #f0f0f0;
+  background: #ececec;
 }
 
 /**

@@ -188,8 +188,8 @@ tty.reset = function() {
 
 tty.toggleLights = function() {
   root.className = !root.className
-    ? 'dark'
-    : '';
+    ? ''
+    : 'dark';
 };
 
 /**
@@ -219,7 +219,7 @@ function Window(socket) {
   button = document.createElement('div');
   button.innerHTML = '+';
   button.title = 'new/close';
-  button.className = 'tab';
+  button.className = 'add-new-tab';
 
   title = document.createElement('div');
   title.className = 'title';
@@ -563,12 +563,23 @@ function Tab(win, socket) {
     rows: rows
   });
 
+  win.tabs.forEach(function(tab) {
+    tab.button.classList.remove('active');
+  });
+
   var button = document.createElement('div');
-  button.className = 'tab';
-  button.innerHTML = '\u2022';
+  button.classList.add('tab', 'active');
+  button.innerHTML = `<div class="tab-name">Tab ${win.tabs.length + 1}</div><div class="close">&times;</div>`;
+
   win.bar.appendChild(button);
 
   on(button, 'click', function(ev) {
+    win.tabs.forEach(function(tab) {
+      tab.button.classList.remove('active');
+    });
+
+    self.button.classList.add('active');
+
     if (ev.ctrlKey || ev.altKey || ev.metaKey || ev.shiftKey) {
       if(win.tabs.length > 1){
         self.destroy();
@@ -648,8 +659,7 @@ Tab.prototype.focus = function() {
       if (win.focused.element.parentNode) {
         win.focused.element.parentNode.removeChild(win.focused.element);
       }
-      win.focused.button.style.fontWeight = '';
-      win.focused.button.style.color = 'white';
+
     }
 
     win.element.appendChild(this.element);
@@ -657,8 +667,6 @@ Tab.prototype.focus = function() {
 
     win.title.innerHTML = this.process;
     document.title = this.title || initialTitle;
-    this.button.style.fontWeight = 'bold';
-    this.button.style.color = '#00ff00';
   }
 
   this.handleTitle(this.title);
