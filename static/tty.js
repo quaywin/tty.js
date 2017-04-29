@@ -554,7 +554,7 @@ Window.prototype.previousTab = function() {
 
 function Tab(win, socket) {
   var self = this;
-
+  var tabs;
   var cols = win.cols
     , rows = win.rows;
 
@@ -569,10 +569,26 @@ function Tab(win, socket) {
 
   var button = document.createElement('div');
   button.classList.add('tab', 'active');
-  button.innerHTML = `<div class="tab-name">Tab ${win.tabs.length + 1}</div><div class="close">&times;</div>`;
-
+  self.tabName = document.createElement('div');
+  self.tabName.classList.add('tab-name');
+  var closeButton = document.createElement('div');
+  closeButton.classList.add('close');
+  closeButton.innerHTML = `&times;`;
+  closeButton.style.visibility = 'hidden';
+  button.appendChild(self.tabName);
+  button.appendChild(closeButton);
   win.bar.appendChild(button);
-
+  on(closeButton, 'click', function (ev) {
+    if(win.tabs.length > 1){
+      self.destroy();
+    }
+  })
+  on(button, 'mouseover', function (ev) {
+    closeButton.style.visibility = 'visible';
+    on(this, 'mouseout', function (ev) {
+      closeButton.style.visibility = 'hidden';
+    })
+  })
   on(button, 'click', function(ev) {
     win.tabs.forEach(function(tab) {
       tab.button.classList.remove('active');
@@ -580,13 +596,13 @@ function Tab(win, socket) {
 
     self.button.classList.add('active');
 
-    if (ev.ctrlKey || ev.altKey || ev.metaKey || ev.shiftKey) {
-      if(win.tabs.length > 1){
-        self.destroy();
-      }
-    } else {
-      self.focus();
-    }
+    // if (ev.ctrlKey || ev.altKey || ev.metaKey || ev.shiftKey) {
+    //   if(win.tabs.length > 1){
+    //     self.destroy();
+    //   }
+    // } else {
+    self.focus();
+    // }
     return cancel(ev);
   });
 
@@ -600,7 +616,7 @@ function Tab(win, socket) {
   this.hookKeys();
 
   win.tabs.push(this);
-
+  
   this.socket.emit('create', cols, rows, function(err, data) {
     if (err) return self._destroy();
     self.pty = data.pty;
@@ -637,6 +653,7 @@ Tab.prototype.handleTitle = function(title) {
     this.window.bar.title = title;
     // this.setProcessName(this.process);
   }
+  this.tabName.innerHTML = title;
 };
 
 Tab.prototype._write = Tab.prototype.write;

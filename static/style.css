@@ -112,7 +112,7 @@ body {
   align-items: center;
   box-sizing: border-box;
   height: 100%;
-  width: 70px;
+  min-width: 70px;
   background-color: #ececec;
   color: #777777;
   padding: 4px;
@@ -121,10 +121,12 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.tab.active,
-.tab:hover {
+.tab.active{
   font-weight: bold;
   background-color: #f9f9f9;
+}
+.tab:hover {
+  background-color: #e6e6e6;
 }
 
 .tab .tab-name {
